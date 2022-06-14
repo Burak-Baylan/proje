@@ -1,6 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyA4DTyrtKuuIKfVH3CafxaJxYHkQK3Skp0",
+      authDomain: "proje-c1d0b.firebaseapp.com",
+      projectId: "proje-c1d0b",
+      storageBucket: "proje-c1d0b.appspot.com",
+      messagingSenderId: "683946021435",
+      appId: "1:683946021435:web:168ef2f642af010d71c21e",
+    ),
+  );
   runApp(const MyApp());
 }
 
