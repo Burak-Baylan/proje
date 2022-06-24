@@ -1,16 +1,35 @@
-# proje
+# Proje
+## Uygulama Kullanım Kılavuzu
 
-A new Flutter project.
+### Kayıt Olma
+https://user-images.githubusercontent.com/67222076/175559308-9bedbd13-75be-4a17-9acf-475019893b41.mp4
 
-## Getting Started
+### Giriş Yapma
+https://user-images.githubusercontent.com/67222076/175559363-76bc107d-f006-4670-ad3f-e51b7a3c57cb.mp4
 
-This project is a starting point for a Flutter application.
+### Bilet Satın Alma
+https://user-images.githubusercontent.com/67222076/175559493-5cd24ad0-bfcf-4439-98cb-2df138132cb6.mp4
 
-A few resources to get you started if this is your first Flutter project:
+### Biletlerin Fragmanını Görme
+https://user-images.githubusercontent.com/67222076/175559570-8017f512-0b47-46db-839b-3d71cdaf3797.mp4
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Biletleri Görme/Silme
+https://user-images.githubusercontent.com/67222076/175559650-7b0c026f-8c31-4d1d-adb4-f5e4d77a3a37.mp4
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Şifre Yenileme
+https://user-images.githubusercontent.com/67222076/175559718-b268dcbf-527f-4476-bab4-4fa1ba950e24.mp4
+
+### Hesaptan Çıkış Yapma
+https://user-images.githubusercontent.com/67222076/175559750-cf668c0b-3b00-4140-bc56-d258bc123e2c.mp4
+
+
+
+
+
+
+
+
+
+
+
+
