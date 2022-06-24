@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../extensions/context_extensions.dart';
 import '../../../main.dart';
 import '../../my_tickets/view/my_tickets_view.dart';
@@ -16,6 +17,8 @@ class _ProfileViewState extends State<ProfileView> {
   User? currentUser;
 
   ProfileController profileVm = ProfileController();
+
+  String projectLink = 'https://github.com/Burak-Baylan/proje';
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +45,8 @@ class _ProfileViewState extends State<ProfileView> {
               buildMyTicketsButton,
               const SizedBox(height: 25),
               buildForgotPasswordButton,
+              const SizedBox(height: 25),
+              howToUseButton,
               const SizedBox(height: 25),
               buildLogoutButton,
             ],
@@ -121,6 +126,24 @@ class _ProfileViewState extends State<ProfileView> {
           ),
         ),
         child: getText(text: 'Şifremi Unuttum'),
+      ),
+    );
+  }
+
+  Widget get howToUseButton {
+    return SizedBox(
+      width: context.width / 3,
+      child: ElevatedButton(
+        onPressed: () => launchUrl(Uri.parse(projectLink)),
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(0, 50),
+          primary: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: Colors.green.shade400, width: 2),
+          ),
+        ),
+        child: getText(text: 'Nasıl Kullanılır'),
       ),
     );
   }

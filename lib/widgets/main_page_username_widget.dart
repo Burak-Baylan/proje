@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../main.dart';
 import '../sayfalar/authenticate/login/view/login_view.dart';
 import '../sayfalar/authenticate/signup/view/signup_view.dart';
@@ -13,10 +14,22 @@ class MainPageUsernameWidget extends StatefulWidget {
 }
 
 class _MainPageUsernameWidgetState extends State<MainPageUsernameWidget> {
+  String projectLink = 'https://github.com/Burak-Baylan/proje';
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (context) {
-      return globalVm.isLoggedIn ? usernameWidget() : loginOrSignupWidget();
+      return Row(
+        children: [
+          globalVm.isLoggedIn ? usernameWidget() : loginOrSignupWidget(),
+          const SizedBox(width: 10),
+          IconButton(
+            onPressed: () => launchUrl(Uri.parse(projectLink)),
+            icon: const Icon(Icons.device_unknown),
+          ),
+          const SizedBox(width: 10),
+        ],
+      );
     });
   }
 
@@ -26,10 +39,10 @@ class _MainPageUsernameWidgetState extends State<MainPageUsernameWidget> {
       onTap: () => globalVm.sendToPage(context, ProfileView()),
       child: Row(
         children: [
-          Icon(Icons.account_circle),
-          SizedBox(width: 5),
+          const Icon(Icons.account_circle),
+          const SizedBox(width: 5),
           Text(user.displayName!),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
         ],
       ),
     );
@@ -41,27 +54,27 @@ class _MainPageUsernameWidgetState extends State<MainPageUsernameWidget> {
         InkWell(
           onTap: () => globalVm.sendToPage(context, LoginView()),
           child: Row(
-            children: [
+            children: const [
               Icon(Icons.login),
               SizedBox(width: 5),
               Text('Login'),
             ],
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         Text('or'),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
         InkWell(
           onTap: () => globalVm.sendToPage(context, SignupView()),
           child: Row(
-            children: [
+            children: const [
               Icon(Icons.person_add),
               SizedBox(width: 5),
               Text('Signup'),
             ],
           ),
         ),
-        SizedBox(width: 10),
+        const SizedBox(width: 10),
       ],
     );
   }
