@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:proje/global/firestore/service/firebase_service.dart';
-
+import '../../../sayfalar/authenticate/model/user_model.dart';
 import '../../error/custom_error.dart';
+import '../service/firebase_service.dart';
 
 class FirebaseManager {
   static FirebaseManager? _instance;
@@ -10,34 +10,16 @@ class FirebaseManager {
   FirebaseManager._init();
 
   FirestoreService firebaseService = FirestoreService.instance;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future increaseField({
-    int count = 1,
-    required DocumentReference documentReference,
-    required String fieldName,
-  }) async =>
-      await firebaseService.updateValue(count, documentReference, fieldName);
-
-  Future decraseField({
-    int count = -1,
-    required DocumentReference documentReference,
-    required String fieldName,
-  }) async {
-    if (count > 0) {
-      count = count - (count * 2);
-    } else if (count == 0) {
-      count = -1;
+  Future<bool> createUser(UserModel userModel) async {
+    var ref = firestore.collection('users').doc(userModel.userId);
+    var response = await firebaseService.addDocument(ref, userModel.toJson());
+    if (response.errorMessage != null) {
+      return false;
     }
-    await firebaseService.updateValue(count, documentReference, fieldName);
+    return true;
   }
-
-  //Future<UserModel?> getAUserInformation(String userId) async {
-  //  var data = await getADocument(userDocRef(userId));
-  //  return data == null ? null : UserModel.fromJson(data);
-  //}
-
-  //Future<UserModel?> get getCurrentUserInformations async =>
-  //    await getAUserInformation(authService.userId!);
 
   Future<Map<String, dynamic>?> getADocument(
     DocumentReference<Object?> reference,
