@@ -11,36 +11,36 @@ class FirebaseAuthService {
   FirebaseAuth auth = FirebaseAuth.instance;
 
   User? get currentUser => auth.currentUser;
-  String? get username => currentUser?.displayName;
-  String? get ppUrl => currentUser?.photoURL;
-  String? get userId => currentUser?.uid;
-  String? get email => currentUser?.email;
-  bool? get isEmailValid => currentUser?.emailVerified;
 
-  //Future<CustomData<UserCredential>> login(LoginModel loginModel) async {
-  //  try {
-  //    UserCredential? userCredential = await auth.signInWithEmailAndPassword(
-  //      email: loginModel.email!,
-  //      password: loginModel.password!,
-  //    );
-  //    return CustomData<UserCredential>(userCredential, null);
-  //  } on FirebaseException catch (e) {
-  //    return CustomData<UserCredential>(null, CustomError(e.message));
-  //  }
-  //}
+  Future<CustomData<UserCredential>> login(
+    String email,
+    String password,
+  ) async {
+    try {
+      UserCredential? userCredential = await auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return CustomData<UserCredential>(userCredential, null);
+    } on FirebaseException catch (e) {
+      return CustomData<UserCredential>(null, CustomError(e.message));
+    }
+  }
 
-  //Future<CustomData<UserCredential>> signup(LoginModel loginModel) async {
-  //  try {
-  //    UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-  //      email: loginModel.email!,
-  //      password: loginModel.password!,
-  //    );
-  //    await userCredential.user!.updateDisplayName(loginModel.username);
-  //    return CustomData<UserCredential>(userCredential, null);
-  //  } on FirebaseException catch (e) {
-  //    return CustomData<UserCredential>(null, CustomError(e.message));
-  //  }
-  //}
+  Future<CustomData<UserCredential>> signup(
+    String email,
+    String password,
+    String username,
+  ) async {
+    try {
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await userCredential.user!.updateDisplayName(username);
+      return CustomData<UserCredential>(userCredential, null);
+    } on FirebaseException catch (e) {
+      return CustomData<UserCredential>(null, CustomError(e.message));
+    }
+  }
 
   Future<CustomError> deleteUser(User user) async {
     try {
