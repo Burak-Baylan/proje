@@ -1,5 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'custom_scroll_behavior.dart';
+import 'global/global_view_model.dart';
+import 'sayfalar/ana_sayfa/view/ana_sayfa.dart';
+import 'widgets/main_page_username_widget.dart';
+
+GlobalViewModel globalVm = GlobalViewModel();
 
 void main() async {
   await Firebase.initializeApp(
@@ -18,15 +26,16 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return GetMaterialApp(
+      scrollBehavior: CustomScrollBehavior(),
+      debugShowCheckedModeBanner: false,
+      title: 'Film',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Filmler'),
     );
   }
 }
@@ -51,29 +60,46 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return FutureBuilder(
+      future: startApp(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Scaffold(appBar: buildAppBar(), body: AnaSayfa());
+        }
+        return Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+
+  AppBar buildAppBar() {
+    return AppBar(
+      actions: const [MainPageUsernameWidget()],
+      backgroundColor: Color.fromARGB(255, 36, 110, 122),
+      title: Text(widget.title),
+      centerTitle: true,
+      leading: buildLeading(),
+    );
+  }
+
+  Widget buildLeading() {
+    return SizedBox(
+      height: kToolbarHeight - 5,
+      width: kToolbarHeight - 5,
+      child: Container(
+        margin: const EdgeInsets.only(left: 10),
+        child: const Icon(
+          Icons.movie_outlined,
+          size: kToolbarHeight - 5,
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
+  }
+
+  Future<void> startApp() async {
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        globalVm.changeLoggedInState(true);
+      }
+    });
   }
 }
